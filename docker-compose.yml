@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  db:
+    build:
+      context: ./mysql-db/
+      dockerfile: Dockerfile
+    container_name: mysql-db
+    restart: always
+    ports:
+      - "3306:3306" 
+  
+  api:
+    build:
+      context: ./agendamento-backend/
+      dockerfile: Dockerfile
+    container_name: agendamento-backend
+    restart: always
+    ports:
+      - "3050:3050"
+    volumes:
+      - "./agendamento-backend/dist/:/home/node/app"
+      - "./agendamento-backend/node_modules:/home/node/app/node_modules"
+  
+  web:
+    build:
+      context: ./agendamento-frontend/
+      dockerfile: Dockerfile
+    container_name: agendamento-frontend
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - "./agendamento-frontend/build/:/usr/share/nginx/html"
