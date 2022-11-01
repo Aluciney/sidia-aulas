@@ -56,7 +56,7 @@ export const Register: React.FC = () => {
 	};
 
 	return (
-		<div className="container-xxl">
+		<div className="container-xxl light-style">
 			<div className="authentication-wrapper authentication-basic container-p-y">
 				<div className="authentication-inner">
 					<div className="card">
@@ -71,7 +71,7 @@ export const Register: React.FC = () => {
 							<h4 className="mb-2 text-center">O aprendizado começa aqui 🚀</h4>
 							<p className="mb-4 text-center">Organizar nunca foi tão fácil e divertido!</p>
 							<Form className="mb-3" onSubmit={handleSubmit(onSubmit)}>
-								<div className="mb-3">
+								<div className="mb-2">
 									<InputText
 										id={'name'}
 										label={'Nome'}
@@ -81,7 +81,7 @@ export const Register: React.FC = () => {
 										required
 									/>
 								</div>
-								<div className="mb-3">
+								<div className="mb-2">
 									<InputText
 										id={'email'}
 										label={'E-mail'}
@@ -91,7 +91,7 @@ export const Register: React.FC = () => {
 										required
 									/>
 								</div>
-								<div className="mb-3 form-password-toggle">
+								<div className="mb-2 form-password-toggle">
 									<InputText
 										id={'password'}
 										label={'Senha'}

@@ -1,13 +1,18 @@
 version: "3.8"
 services:
   db:
-    build:
-      context: ./mysql-db/
-      dockerfile: Dockerfile
+    image: mysql:5.7
     container_name: mysql-db
     restart: always
+    environment:
+      MYSQL_DATABASE: 'scheduling_dev'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: '123456789'
+      MYSQL_ROOT_PASSWORD: '123456789'
     ports:
-      - "3306:3306" 
+      - "3306:3306"
+    expose:
+      - "3306"
   
   api:
     build:
@@ -28,6 +33,6 @@ services:
     container_name: agendamento-frontend
     restart: always
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - "./agendamento-frontend/build/:/usr/share/nginx/html"

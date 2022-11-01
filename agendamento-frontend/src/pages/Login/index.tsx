@@ -39,7 +39,7 @@ export const Login: React.FC = () => {
 	};
 
 	return (
-		<div className="container-xxl">
+		<div className="container-xxl light-style">
 			<div className="authentication-wrapper authentication-basic container-p-y">
 				<div className="authentication-inner">
 					<div className="card">
@@ -54,7 +54,7 @@ export const Login: React.FC = () => {
 							<h4 className="mb-2 text-center">Bem vindo a Sidia! 👋</h4>
 							<p className="mb-4 text-center">Faça login com sua e-mail e senha</p>
 							<Form className="mb-3" onSubmit={handleSubmit(onSubmit)}>
-								<div className="mb-3">
+								<div className="mb-2">
 									<InputText
 										id={'email'}
 										label={'E-mail'}

@@ -7,7 +7,7 @@ import { AuthMiddleware } from './middlewares/AuthMiddleware';
 const routes = Router();
 
 routes.post('/authentication/login',  AuthController.login);
-routes.post('/authentication/register',  AuthController.regiter);
+routes.post('/authentication/register',  UserController.create);
 
 routes.get('/schedules', [AuthMiddleware], ScheduleController.index);
 routes.post('/schedules', [AuthMiddleware], ScheduleController.create);

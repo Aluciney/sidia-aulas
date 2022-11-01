@@ -1,5 +1,4 @@
 import { knex } from '../knex';
-import bcrypt from 'bcrypt';
 
 export const Schedule = {
 	findAll: async ({ paginate }: { paginate: { isLengthAware: boolean, perPage: number, currentPage: number } }) => {
@@ -16,12 +15,11 @@ export const Schedule = {
 				date
 			});
 	},
-	update: async ({ id, name, email, password }: { id: number, name: string, email: string, password: string }) => {
-		return await knex('user')
+	update: async ({ id, id_matter_teacher, date }: { id: number, id_matter_teacher: number, date: string }) => {
+		return await knex('schedule')
 			.update({
-				name, 
-				email, 
-				password_hash: password ? bcrypt.hashSync(password, bcrypt.genSaltSync(10)) : undefined,
+				id_matter_teacher, 
+				date,
 				updated_at: new Date()
 			})
 			.where('id', id);
