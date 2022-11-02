@@ -23,13 +23,13 @@ interface Teacher {
 	id_user: number;
 }
 
-interface MatherTeacher {
+interface MatterTeacher {
 	id: number;
 	id_matter: number;
 	id_teacher: number;
 }
 
-interface MatherTeacherJoin {
+interface MatterTeacherJoin {
 	id: number;
 	name: string;
 	email: string;

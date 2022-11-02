@@ -6,7 +6,9 @@ import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { useAuth } from '../contexts/auth';
 import { Home } from '../pages/Home';
+import { MatterList } from '../pages/Matter';
 import { ScheduleList, ScheduleRegister } from '../pages/Schedule';
+import { TeacherList, TeacherShow } from '../pages/Teacher';
 import { UserList } from '../pages/User';
 
 export const UserLayout: React.FC = () => {
@@ -31,12 +33,13 @@ export const UserLayout: React.FC = () => {
 					<div className="content-wrapper">
 						<Switch>
 							<Route path="/" element={<Home />} />
-							<Route path="/usuarios" element={<UserList />} />
 							<Route path="/agendamentos" element={<ScheduleList />} />
 							<Route path="/agendamentos/cadastrar" element={<ScheduleRegister />} />
 
-							{user?.profile && <Route path="/usuarios" element={<ScheduleRegister />} />}
-							{user?.profile && <Route path="/materias" element={<ScheduleRegister />} />}
+							{user?.profile && <Route path="/usuarios" element={<UserList />} />}
+							{user?.profile && <Route path="/materias" element={<MatterList />} />}
+							{user?.profile && <Route path="/professores" element={<TeacherList />} />}
+							{user?.profile && <Route path="/professores/:ID" element={<TeacherShow />} />}
 
 							<Route path="/*" element={<Navigate to="/" replace />} />
 						</Switch>

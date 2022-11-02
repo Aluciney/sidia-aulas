@@ -33,7 +33,7 @@ export const Register: React.FC = () => {
 	const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({ resolver: yupResolver(schema) });
 	const [loading, setLoading] = useState(false);
 	const [matters, setMatters] = useState<Matter[]>([]);
-	const [teachers, setTeachers] = useState<MatherTeacherJoin[]>([]);
+	const [teachers, setTeachers] = useState<MatterTeacherJoin[]>([]);
 
 	useEffect(() => {
 		async function getMattersData() {

@@ -1,8 +1,7 @@
 import { knex } from '../knex';
-import bcrypt from 'bcrypt';
 
 export const MatterTeacher = {
-	findAll: async ({ where }: { where: any }) => {
+	findAllTeacher: async ({ where }: { where: any }) => {
 		return await knex('matter_teacher')
 			.select([
 				'user.id',
@@ -14,33 +13,27 @@ export const MatterTeacher = {
 			.where(where)
 			.orderBy('user.name');
 	},
-	findById: async (id: number) => {
-		return await knex('user').where('id', id).first();
+	findAllMatter: async ({ where = {} }: { where: any }) => {
+		return await knex('matter_teacher')
+			.select([
+				'matter_teacher.id',
+				'matter_teacher.id_matter',
+				'matter.name'
+			])
+			.join('matter', 'matter_teacher.id_matter', 'matter.id')
+			.where(where)
+			.orderBy('matter.name');
 	},
-	store: async ({ name, email, password }: { name: string, email: string, password: string }) => {		
-		return await knex('user')
+	store: async ({ id_matter, id_teacher }: { id_matter: number, id_teacher: number }) => {		
+		return await knex('matter_teacher')
 			.insert({
-				name, 
-				email, 
-				password_hash: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+				id_matter, 
+				id_teacher
 			});
 	},
-	update: async ({ id, name, email, password }: { id: number, name: string, email: string, password: string }) => {
-		return await knex('user')
-			.update({
-				name, 
-				email, 
-				password_hash: password ? bcrypt.hashSync(password, bcrypt.genSaltSync(10)) : undefined,
-				updated_at: new Date()
-			})
-			.where('id', id);
-	},
 	delete: async (id: number) => {
-		return await knex('user')
-			.update({
-				status: 'N',
-				updated_at: new Date()
-			})
+		return await knex('matter_teacher')
+			.delete()
 			.where('id', id);
 	}
 };

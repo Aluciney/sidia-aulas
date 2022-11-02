@@ -17,13 +17,11 @@ export const MatterController = {
 	store: async (req: Request, res: Response) => {
 		const schema = Yup.object().shape({
 			name: Yup.string().required('Campo obrigatório'),
-			email: Yup.string().required('Campo obrigatório').email('E-mail inválido'),
-			password: Yup.string().required('Campo obrigatório'),
 		});
 		await schema.validate(req.body, { abortEarly: false });
 		try {
-			const { name, email, password } = req.body;			
-			const result = await User.store({ name, email, password });
+			const { name } = req.body;			
+			const result = await Matter.store({ name });
 			if(result[0] === 0){
 				res.status(404).json({ error: 'Nenhum usuário foi registrada' });
 				return;
@@ -32,12 +30,6 @@ export const MatterController = {
 			return;
 		} catch (error: any) {
 			var message = 'Um erro inesperado aconteceu, tente novamente mais tarde.';
-			if(error.stack){
-				var errorMessage = error.stack.includes('unique');
-				if(errorMessage){
-					message = 'Conta já registrada, tente efetuar o login'
-				}
-			}
 			res.status(404).json({ error: message });
 			return;
 		}
@@ -45,15 +37,15 @@ export const MatterController = {
 	delete: async (req: Request, res: Response) => {
 		try {
 			const { ID } = req.params as any;
-			const user = await User.delete(ID);
-			if(user === 0){
-				res.status(401).json({ error: 'Nenhum usuário foi removido.' });
+			const matter = await Matter.delete(ID);
+			if(matter === 0){
+				res.status(401).json({ error: 'Nenhum matéria foi removida.' });
 				return;
 			}
-			res.status(200).json({ message: 'Usuário removido com sucesso.'});
+			res.status(200).json({ message: 'Matéria removida com sucesso.'});
 			return;
 		} catch (error) {
-			res.status(404).json({ error: 'Erro ao tentar remover usuário. Tente novamente mais tarde.' });
+			res.status(404).json({ error: 'Erro ao tentar remover matéria. Tente novamente mais tarde.' });
 			return;
 		}
 	},

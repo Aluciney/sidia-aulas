@@ -18,6 +18,7 @@ routes.put('/schedules/:ID', [AuthMiddleware], ScheduleController.update);
 routes.delete('/schedules/:ID', [AuthMiddleware], ScheduleController.delete);
 
 routes.get('/users', [AuthMiddleware], UserController.index);
+routes.get('/users/no_teacher', [AuthMiddleware], UserController.indexNoTeacher);
 routes.put('/users/:ID', [AuthMiddleware], UserController.update);
 routes.delete('/users/:ID', [AuthMiddleware], UserController.delete);
 
@@ -26,9 +27,12 @@ routes.post('/matters', [AuthMiddleware], MatterController.store);
 routes.delete('/matters/:ID', [AuthMiddleware], MatterController.delete);
 
 routes.get('/teachers', [AuthMiddleware], TeacherController.index);
+routes.get('/teachers/:ID', [AuthMiddleware], TeacherController.show);
 routes.post('/teachers', [AuthMiddleware], TeacherController.store);
 routes.delete('/teachers/:ID', [AuthMiddleware], TeacherController.delete);
 
 routes.get('/matters_teacher', [AuthMiddleware], MatterTeacherController.index);
+routes.post('/matters_teacher', [AuthMiddleware], MatterTeacherController.store);
+routes.delete('/matters_teacher/:ID', [AuthMiddleware], MatterTeacherController.delete);
 
 export { routes };

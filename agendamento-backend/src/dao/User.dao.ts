@@ -3,7 +3,26 @@ import bcrypt from 'bcrypt';
 
 export const User = {
 	findAll: async ({ paginate }: { paginate: { isLengthAware: boolean, perPage: number, currentPage: number } }) => {
-		return await knex('user').paginate(paginate);
+		return await knex('user')
+			.select([
+				'id',
+				'name',
+				'email',
+				'status',
+			])
+			.where('status', 'Y')
+			.paginate(paginate);
+	},
+	findAllNoTeacher: async () => {
+		return await knex('user')
+			.select([
+				'id',
+				'name',
+				'email',
+				'status',
+			])
+			.where('status', 'Y')
+			.andWhere('id', 'NOT IN', knex.raw('(SELECT t.id_user FROM teacher t)'));
 	},
 	findById: async (id: number) => {
 		return await knex('user').where('id', id).first();
@@ -27,6 +46,11 @@ export const User = {
 			.where('id', id);
 	},
 	delete: async (id: number) => {
+		await knex('matter_teacher')
+			.delete()
+			.join('teacher', 'matter_teacher.id_teacher', 'teacher.id')
+			.where('teacher.id_user', id);
+		await knex('teacher').delete().where('id_user', id);
 		return await knex('user')
 			.update({
 				status: 'N',

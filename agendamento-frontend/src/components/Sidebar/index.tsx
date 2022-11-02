@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { BsCalendar4Week, BsJournalBookmark } from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
+import { FaChalkboardTeacher } from 'react-icons/fa';
 import { IoHomeOutline } from 'react-icons/io5';
-import { BsCalendar4Week } from 'react-icons/bs';
+import { FiUsers } from 'react-icons/fi';
 
 import LogoImage from '../../assets/img/logo.png';
 import { BiChevronLeft } from 'react-icons/bi';
@@ -58,7 +60,7 @@ export const Sidebar: React.FC<Props> = ({ visibleMenu, setVisibleMenu }) => {
 				<li className={`menu-item ${!currentDomain ? 'active' : ''}`}>
 					<Link to="" className="menu-link">
 						<IoHomeOutline className="menu-icon tf-icons bx" />
-						<div data-i18n="Analytics">Dashboard</div>
+						<div data-i18n="Analytics">Home</div>
 					</Link>
 				</li>
 				<li className="menu-header small text-uppercase">
@@ -75,16 +77,22 @@ export const Sidebar: React.FC<Props> = ({ visibleMenu, setVisibleMenu }) => {
 						<li className="menu-header small text-uppercase">
 							<span className="menu-header-text">Administrador</span>
 						</li>
+						<li className={`menu-item ${currentDomain === 'usuarios' ? 'active' : ''}`}>
+							<Link to="/usuarios" className="menu-link">
+								<FiUsers className="menu-icon tf-icons bx" />
+								<div data-i18n="Basic">Usuários</div>
+							</Link>
+						</li>
 						<li className={`menu-item ${currentDomain === 'materias' ? 'active' : ''}`}>
 							<Link to="/materias" className="menu-link">
-								<BsCalendar4Week className="menu-icon tf-icons bx" />
+								<BsJournalBookmark className="menu-icon tf-icons bx" />
 								<div data-i18n="Basic">Matérias</div>
 							</Link>
 						</li>
-						<li className={`menu-item ${currentDomain === 'usuarios' ? 'active' : ''}`}>
-							<Link to="/usuarios" className="menu-link">
-								<BsCalendar4Week className="menu-icon tf-icons bx" />
-								<div data-i18n="Basic">Usuários</div>
+						<li className={`menu-item ${currentDomain === 'professores' ? 'active' : ''}`}>
+							<Link to="/professores" className="menu-link">
+								<FaChalkboardTeacher className="menu-icon tf-icons bx" />
+								<div data-i18n="Basic">Professores</div>
 							</Link>
 						</li>
 					</>

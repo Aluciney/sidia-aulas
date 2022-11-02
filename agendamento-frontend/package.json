@@ -60,6 +60,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/react-toastify": "^4.1.0",
     "@types/styled-components": "^5.1.26",
+    "@types/sweetalert": "^2.0.4",
     "cross-env": "^7.0.3"
   }
 }

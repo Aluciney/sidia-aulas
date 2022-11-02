@@ -1,36 +1,23 @@
 import React from 'react';
+import { BiHome } from 'react-icons/bi';
 
-// import { Container } from './styles';
+import WorkImage from '../../assets/img/home.svg';
 
 export const Home: React.FC = () => {
 	return (
 		<div className="container-xxl flex-grow-1 container-p-y">
-			<div className="row">
-				<div className="col-lg-8 mb-4 order-0">
-					<div className="card">
-						<div className="d-flex align-items-end row">
-							<div className="col-sm-7">
-								<div className="card-body">
-									<h5 className="card-title text-primary">Congratulations John! 🎉</h5>
-									<p className="mb-4">
-										You have done <span className="fw-bold">72%</span> more sales today. Check your new badge in
-										your profile.
-									</p>
-
-									<a href="javascript:;" className="btn btn-sm btn-outline-primary">View Badges</a>
-								</div>
+			<h5 className="fw-bold pb-3">Home</h5>
+			<div className="card mb-4">
+				<div className="card-body h-100 p-5">
+					<div className="row align-items-center">
+						<div className="col-xl-8">
+							<div className="text-center text-xl-start mb-4 mb-xl-0 mb-xxl-4">
+								<h1 className="text-primary">Bem-vindo ao sistema de Agendamento</h1>
+								<p className="text-gray-700">Aqui você pode agendar, acompanhar e controlar seus aulas particulares.</p>
 							</div>
-							<div className="col-sm-5 text-center text-sm-left">
-								<div className="card-body pb-0 px-0 px-md-4">
-									<img
-										src="../assets/img/illustrations/man-with-laptop-light.png"
-										height="140"
-										alt="View Badge User"
-										data-app-dark-img="illustrations/man-with-laptop-dark.png"
-										data-app-light-img="illustrations/man-with-laptop-light.png"
-									/>
-								</div>
-							</div>
+						</div>
+						<div className="col-xl-4 text-center">
+							<img className="img-fluid" src={WorkImage} style={{ maxWidth: '18rem' }} />
 						</div>
 					</div>
 				</div>

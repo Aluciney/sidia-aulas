@@ -15,6 +15,16 @@ export const UserController = {
 			return;
 		}
 	},
+	indexNoTeacher: async (req: Request, res: Response) => {
+		try {
+			const users = await User.findAllNoTeacher();
+			res.status(200).json(users);
+			return;
+		} catch (error) {
+			res.status(404).json({ error: 'Erro ao tentar listar usuários. Tente novamente mais tarde.' });
+			return;
+		}
+	},
 	show: async (req: Request, res: Response) => {
 		try {
 			const { ID } = req.params as any;

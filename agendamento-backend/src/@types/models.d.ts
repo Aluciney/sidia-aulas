@@ -19,7 +19,6 @@ interface Schedule {
 	id_matter: number;
 	id_teacher: number;
 	date: string;
-	status: 'Y' | 'N';
 	created_at: Date;
 	updated_at: Date;
 }

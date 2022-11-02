@@ -2,51 +2,79 @@
 ![Logo](https://sidia.com/wp-content/uploads/2022/01/sidia.png)
 
 
-# Sidia Aulas - Teste
+# Sidia Classes - Test
 
-Sistema de agendamentos de aulas por matéria e professor.
-
-
-## Funcionalidades
-
-- Cadastro de usuário
-- Cadastro, edição e exclusão de agendamentos
-- Cadastro, edição e exclusão de matérias (Administradores)
-- Cadastro e exclusão de professores (Administradores)
-- Cadastro e exclusão de permissões
+Classroom scheduling system by subject and teacher.
 
 
-## Variáveis de Ambiente
+## Functionalities
 
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no **.env** que está na raiz do projeto
+- User registration
+- Registration and deletion of appointments
+- Registration and deletion of subjects (Administrator)
+- Registration and exclusion of teachers (Administrator)
+- Deleting Users (Administrator)
 
-`MY_IP=""` *aqui você preenche com seu endereço IP local*
-## Instalação
+## Installation
 
-Instale o projeto utilizando docker-compose
+Clone the project
+
+```bash
+  git clone https://github.com/Aluciney/sidia-aulas.git
+```
+
+Enter the project directory
+
+```bash
+  cd sidia-aulas
+```
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to the **.env** that is at the root of the project
+
+*here you fill with your local IP address*
+
+```bash
+  MY_IP=""
+```
+
+## Start services
+
+Start the server
 
 ```bash
   docker-compose --env-file .env up -d --build
 ```
 
-### Configurar o banco de dados
-
-Configure o banco de dados utilizando o próprio container
+Configure the database
 
 ```bash
   docker exec -ti agendamento-backend sh -c "yarn init-application"
 ```
-    
-## Teste
 
-Para rodar os testes basta executar
+Access the project
+
+http://localhost:8080
+
+Admin access
+
+```bash
+  email: admin.app@sidia.com
+  senha: 12345678
+```
+
+
+## Test
+
+To run the tests, just run
 
 ```bash
   docker exec -ti agendamento-backend sh -c "yarn test"
 ```
 
 
-## Stack utilizada
+## Used stack
 
 **Front-end:** React, ContextAPI, Bootstrap5CSS
 

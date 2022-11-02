@@ -121,8 +121,6 @@ export const List: React.FC = () => {
 						onChangeRowsPerPage={setPerPage}
 						striped
 						highlightOnHover
-						pointerOnHover
-						onRowClicked={row => navigate(`/usuarios/${row.id}`)}
 						progressPending={loading}
 						progressComponent={<LoadingIcon size={40} style={{ margin: 40 }} />}
 						noHeader={true}
