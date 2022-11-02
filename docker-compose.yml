@@ -1,14 +1,24 @@
-version: "3.8"
-services:
+version: "3.9"
+
+networks:
+  fullstack:
+    driver: bridge
+
+services: 
   db:
     image: mysql:5.7
     container_name: mysql-db
     restart: always
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./mysql-db/init.sql:/data/application/init.sql
     environment:
-      MYSQL_DATABASE: 'scheduling_dev'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: '123456789'
-      MYSQL_ROOT_PASSWORD: '123456789'
+      MYSQL_DATABASE: "scheduling_dev"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "123456789"
+      MYSQL_ROOT_PASSWORD: "123456789"
+    networks:
+      - fullstack
     ports:
       - "3306:3306"
     expose:
@@ -18,13 +28,15 @@ services:
     build:
       context: ./agendamento-backend/
       dockerfile: Dockerfile
+      args:
+        MY_IP: "${MY_IP}"
+        DB_PASS: "123456789"
     container_name: agendamento-backend
     restart: always
+    networks:
+      - fullstack
     ports:
       - "3050:3050"
-    volumes:
-      - "./agendamento-backend/dist/:/home/node/app"
-      - "./agendamento-backend/node_modules:/home/node/app/node_modules"
   
   web:
     build:
@@ -32,7 +44,7 @@ services:
       dockerfile: Dockerfile
     container_name: agendamento-frontend
     restart: always
+    networks:
+      - fullstack
     ports:
-      - "8080:80"
-    volumes:
-      - "./agendamento-frontend/build/:/usr/share/nginx/html"
+      - "8080:8080"

@@ -32,11 +32,11 @@ const AuthMiddleware = async (req: Request, res: Response, next: NextFunction) =
 		}
 		const jwtDecoded = decoded as { id: number };
 		const user = await User.findById(jwtDecoded.id);
-		if(user?.status === 'Y'){
+		if(user?.status === 'N'){
 			res.status(401).json({ error: 'Usuário desativado, favor entrar em contato com suporte.' });
 			return;
 		}
-		req.user = await User.findById(jwtDecoded.id);
+		req.user = user;
 		next();
 		return;
 	});

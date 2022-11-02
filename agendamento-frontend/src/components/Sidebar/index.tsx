@@ -5,6 +5,7 @@ import { BsCalendar4Week } from 'react-icons/bs';
 
 import LogoImage from '../../assets/img/logo.png';
 import { BiChevronLeft } from 'react-icons/bi';
+import { useAuth } from '../../contexts/auth';
 
 interface Props {
 	visibleMenu: boolean;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export const Sidebar: React.FC<Props> = ({ visibleMenu, setVisibleMenu }) => {
+
+	const { user } = useAuth();
 	const location = useLocation();
 	const [currentDomain, setCurrentDomain] = useState<string>();
 	const ref = useRef<HTMLElement>(null);
@@ -67,6 +70,25 @@ export const Sidebar: React.FC<Props> = ({ visibleMenu, setVisibleMenu }) => {
 						<div data-i18n="Basic">Agendamentos</div>
 					</Link>
 				</li>
+				{user?.profile && (
+					<>
+						<li className="menu-header small text-uppercase">
+							<span className="menu-header-text">Administrador</span>
+						</li>
+						<li className={`menu-item ${currentDomain === 'materias' ? 'active' : ''}`}>
+							<Link to="/materias" className="menu-link">
+								<BsCalendar4Week className="menu-icon tf-icons bx" />
+								<div data-i18n="Basic">Matérias</div>
+							</Link>
+						</li>
+						<li className={`menu-item ${currentDomain === 'usuarios' ? 'active' : ''}`}>
+							<Link to="/usuarios" className="menu-link">
+								<BsCalendar4Week className="menu-icon tf-icons bx" />
+								<div data-i18n="Basic">Usuários</div>
+							</Link>
+						</li>
+					</>
+				)}
 			</ul>
 		</aside>
 	);

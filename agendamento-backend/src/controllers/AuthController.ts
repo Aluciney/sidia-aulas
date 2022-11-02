@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { knex } from '../knex';
+import { UserProfile } from '../dao/UserProfile.dao';
 
 export const AuthController = {
 	login: async (req: Request, res: Response) => {
@@ -13,7 +14,7 @@ export const AuthController = {
 		await schema.validate(req.body, { abortEarly: false });
 		try {
 			const { email, password } = req.body;
-			const user = await knex('user').where('email', email).first();
+			var user = await knex('user').where('email', email).first();
 			if (!user) {
 				res.status(401).json({ error: 'Login ou senha inválidos. Verifique suas credenciais.' });
 				return;
@@ -22,6 +23,11 @@ export const AuthController = {
 			if (!compareHash) {
 				res.status(401).json({ error: 'Login ou senha inválidos. Verifique suas credenciais.' });
 				return;
+			}
+			const profile = await UserProfile.findByIdUser(user.id);
+			if(profile){
+				//@ts-ignore
+				user.profile = profile;
 			}
 			const token = jwt.sign({ id: user?.id }, `${process.env.JWT_SECRET_KEY}`);
 			res.status(200).json({ user, token });

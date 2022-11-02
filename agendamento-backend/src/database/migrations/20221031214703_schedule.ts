@@ -5,7 +5,8 @@ export async function up(knex: Knex): Promise<void> {
 		.createTable('schedule', function (table) {
 			table.increments('id').unsigned().primary();
 			table.integer('id_user', 10).unsigned().notNullable().references('id').inTable('user');
-			table.integer('id_matter_teacher', 10).unsigned().notNullable().references('id').inTable('matter_teacher');
+			table.integer('id_matter', 10).unsigned().notNullable().references('id').inTable('matter');
+			table.integer('id_teacher', 10).unsigned().notNullable().references('id').inTable('teacher');
 			table.date('date').notNullable();
 			table.enum('status', ['Y', 'N']).notNullable().defaultTo('Y');
 			table.dateTime('created_at').notNullable().defaultTo(knex.fn.now());

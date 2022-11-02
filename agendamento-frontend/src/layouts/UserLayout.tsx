@@ -4,12 +4,14 @@ import { Navigate, Route, Routes as Switch } from 'react-router-dom';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
+import { useAuth } from '../contexts/auth';
 import { Home } from '../pages/Home';
 import { ScheduleList, ScheduleRegister } from '../pages/Schedule';
 import { UserList } from '../pages/User';
 
 export const UserLayout: React.FC = () => {
 
+	const { user } = useAuth();
 	const [visibleMenu, setVisibleMenu] = useState(false);
 
 	useEffect(() => {
@@ -32,6 +34,10 @@ export const UserLayout: React.FC = () => {
 							<Route path="/usuarios" element={<UserList />} />
 							<Route path="/agendamentos" element={<ScheduleList />} />
 							<Route path="/agendamentos/cadastrar" element={<ScheduleRegister />} />
+
+							{user?.profile && <Route path="/usuarios" element={<ScheduleRegister />} />}
+							{user?.profile && <Route path="/materias" element={<ScheduleRegister />} />}
+
 							<Route path="/*" element={<Navigate to="/" replace />} />
 						</Switch>
 						<Footer />

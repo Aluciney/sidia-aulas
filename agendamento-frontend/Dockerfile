@@ -1,20 +1,16 @@
+FROM node:18.12
 
-# Name the node stage "builder"
-FROM node:16-alpine AS builder
-# Set working directory
-WORKDIR /app
+RUN apt-get update && apt-get install curl
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-FROM nginx:alpine
-# Set working directory to nginx asset directory
-WORKDIR /usr/share/nginx/html
-# Remove default nginx static assets
-RUN rm -rf ./*
+RUN apt update && apt install --no-install-recommends yarn
+		
+WORKDIR /home/node/app
+COPY . /home/node/app
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx/nginx.conf /etc/nginx/conf.d
+RUN yarn install
 
-RUN apk update && apk add tzdata
-ENV TZ="America/Manaus"
+EXPOSE 8080
 
-# Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD [ "yarn", "start" ]

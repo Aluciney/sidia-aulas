@@ -25,7 +25,7 @@ const schema = Yup.object().shape({
 	name: Yup.string().required('Campo obrigatório'),
 	email: Yup.string().required('Campo obrigatório').email('E-mail inválido'),
 	password: Yup.string().required('Campo obrigatório').min(8, 'No mínimo 8 caracteres'),
-	confirm_password: Yup.string().when('password', (password, schema_) => {
+	confirm_password: Yup.string().required('Campo obrigatório').when('password', (password, schema_) => {
 		return schema_.test({
 			test: (value: string) => password === value,
 			message: 'Senhas não correspondem'

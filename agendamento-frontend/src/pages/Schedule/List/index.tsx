@@ -1,34 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
-import { BiPlus, BiTrash } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
+import { BiPlus, BiTrash } from 'react-icons/bi';
+import { format, parseISO } from 'date-fns';
 import Swal from 'sweetalert2';
+
+import { ShowErrorRequest } from '../../../utils/ShowErrorRequest';
 import LoadingIcon from '../../../components/LoadingIcon';
 import { api } from '../../../services/api';
-import { ShowErrorRequest } from '../../../utils/ShowErrorRequest';
+
+interface ListSchedule {
+	id: number;
+	name_user: string;
+	email_user: string;
+	name_teacher: string;
+	email_teacher: string;
+	name_matter: string;
+	date: string;
+	status: string;
+	created_at: string;
+}
 
 export const List: React.FC = () => {
 
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(true);
-	const [schedules, setSchedules] = useState<Schedule[]>([]);
+	const [schedules, setSchedules] = useState<ListSchedule[]>([]);
 	const [max, setMax] = useState(0);
 	const [page, setPage] = useState(1);
 	const [perPage, setPerPage] = useState(10);
 
-	const columns: TableColumn<Schedule>[] = [
+	const columns: TableColumn<ListSchedule>[] = [
 		{
 			name: '#',
 			minWidth: '80px',
 			maxWidth: '80px',
+			center: true,
 			cell: (row) => row.id,
 		},
 		// {
 		// 	name: 'NOME',
-		// 	cell: (row) => row.name,
+		// 	cell: (row) => row.name_user,
 		// },
 		{
-			name: 'DELETAR',
+			name: 'MATÉRIA',
+			cell: (row) => row.name_matter,
+		},
+		{
+			name: 'PROFESSOR(A)',
+			cell: (row) => row.name_teacher,
+		},
+		{
+			name: 'DATA',
+			center: true,
+			cell: (row) => format(parseISO(row.date),'dd/MM/yyyy'),
+		},
+		{
+			name: 'AÇÃO',
 			center: true,
 			minWidth: '100px',
 			maxWidth: '100px',
@@ -110,7 +138,7 @@ export const List: React.FC = () => {
 					</div>
 				</div>
 				<div className="table-responsive text-nowrap p-4 pt-0">
-					<DataTable<Schedule>
+					<DataTable<ListSchedule>
 						columns={columns}
 						data={schedules}
 						responsive
@@ -123,7 +151,6 @@ export const List: React.FC = () => {
 						striped
 						highlightOnHover
 						pointerOnHover
-						onRowClicked={row => navigate(`/agendamentos/${row.id}`)}
 						progressPending={loading}
 						progressComponent={<LoadingIcon size={40} style={{ margin: 40 }} />}
 						noHeader={true}
@@ -136,7 +163,6 @@ export const List: React.FC = () => {
 					/>
 				</div>
 			</div>
-
 		</div>
 	);
 };

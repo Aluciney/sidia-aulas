@@ -7,20 +7,30 @@ interface User {
 	created_at: Date;
 	updated_at: Date;
 }
+
 interface Teacher {
 	id: number;
-	
+	id_user: number;
 }
+
 interface Schedule {
 	id: number;
 	id_user: number;
-	id_matter_teacher: number;
+	id_matter: number;
+	id_teacher: number;
 	date: string;
 	status: 'Y' | 'N';
 	created_at: Date;
 	updated_at: Date;
 }
+
 interface MatterTeacher {
 	id: number;
+	id_matter: number;
+	id_teacher: number;
+}
 
+interface Matter {
+	id: number;
+	name: string;
 }
